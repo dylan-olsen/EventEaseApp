@@ -4,6 +4,7 @@ using EventEaseApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventEaseApp.Migrations
 {
     [DbContext(typeof(EventEaseAppContext))]
-    partial class EventEaseAppContextModelSnapshot : ModelSnapshot
+    [Migration("20250320111710_AddMoreSeedData")]
+    partial class AddMoreSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,7 +186,7 @@ namespace EventEaseApp.Migrations
                         {
                             VenueId = 1,
                             Capacity = 500,
-                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN57LMlQjGAAO4dkv1yUjWMyxFPHvfkHKOSg&s",
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/3/3f/Grand_Hall_Interior.jpg",
                             Location = "New York, USA",
                             VenueName = "Grand Hall"
                         },
@@ -191,7 +194,7 @@ namespace EventEaseApp.Migrations
                         {
                             VenueId = 2,
                             Capacity = 1000,
-                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHaUFzC27bQO5Est2gNRpmULPBJTwHhgDQfQ&s",
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/8/89/Arena_in_LA.jpg",
                             Location = "Los Angeles, USA",
                             VenueName = "Sunset Arena"
                         },
@@ -199,7 +202,7 @@ namespace EventEaseApp.Migrations
                         {
                             VenueId = 3,
                             Capacity = 750,
-                            ImageUrl = "https://media.istockphoto.com/id/1467962890/photo/above-chicago.jpg?s=612x612&w=0&k=20&c=lZJbZiT10L_9-mjS07rEwCOT6wUigyUdKYJxrEbeuvY=",
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/6/68/Modern_Pavilion.jpg",
                             Location = "Chicago, USA",
                             VenueName = "Skyline Pavilion"
                         },
@@ -207,7 +210,7 @@ namespace EventEaseApp.Migrations
                         {
                             VenueId = 4,
                             Capacity = 1200,
-                            ImageUrl = "https://canvas-events-locations.imgix.net/ea7aaad0e8647fe5b9c77efdefb2b95a54215bd95f5c80.02567362/1/Crystal2.jpg?w=1200&fit=crop&mark=https://www.canvas-events.co.uk/images/canvas-yellow-watermark-v1.1.png&markw=150&markalign=top,left&markpad=50&dpr=2&q=20&usm=20&auto=format&h=675",
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/5/5a/Conference_Center.jpg",
                             Location = "London, UK",
                             VenueName = "Crystal Conference Center"
                         },
@@ -215,7 +218,7 @@ namespace EventEaseApp.Migrations
                         {
                             VenueId = 5,
                             Capacity = 2000,
-                            ImageUrl = "https://stadiumdb.com/img/news/2022/08/19978-thumbnail.jpg",
+                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/2/27/Modern_Stadium.jpg",
                             Location = "Miami, USA",
                             VenueName = "Blue Wave Stadium"
                         });

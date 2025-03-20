@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventEaseApp.Migrations
 {
     [DbContext(typeof(EventEaseAppContext))]
-    [Migration("20250319124945_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250320111148_FixSeedData")]
+    partial class FixSeedData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -49,6 +49,22 @@ namespace EventEaseApp.Migrations
                     b.HasIndex("VenueId");
 
                     b.ToTable("Booking");
+
+                    b.HasData(
+                        new
+                        {
+                            BookingId = 1,
+                            BookingDate = new DateTime(2025, 3, 20, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            EventId = 1,
+                            VenueId = 1
+                        },
+                        new
+                        {
+                            BookingId = 2,
+                            BookingDate = new DateTime(2025, 3, 21, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            EventId = 2,
+                            VenueId = 2
+                        });
                 });
 
             modelBuilder.Entity("EventEaseApp.Models.Event", b =>
@@ -75,6 +91,22 @@ namespace EventEaseApp.Migrations
                     b.HasKey("EventId");
 
                     b.ToTable("Event");
+
+                    b.HasData(
+                        new
+                        {
+                            EventId = 1,
+                            Description = "A global conference on emerging technologies.",
+                            EventDate = new DateTime(2025, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EventName = "Tech Conference 2025"
+                        },
+                        new
+                        {
+                            EventId = 2,
+                            Description = "An electrifying music experience with top artists.",
+                            EventDate = new DateTime(2025, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EventName = "Music Festival"
+                        });
                 });
 
             modelBuilder.Entity("EventEaseApp.Models.Venue", b =>
@@ -106,6 +138,24 @@ namespace EventEaseApp.Migrations
                     b.HasKey("VenueId");
 
                     b.ToTable("Venue");
+
+                    b.HasData(
+                        new
+                        {
+                            VenueId = 1,
+                            Capacity = 500,
+                            ImageUrl = "https://via.placeholder.com/150",
+                            Location = "New York",
+                            VenueName = "Grand Hall"
+                        },
+                        new
+                        {
+                            VenueId = 2,
+                            Capacity = 1000,
+                            ImageUrl = "https://via.placeholder.com/150",
+                            Location = "Los Angeles",
+                            VenueName = "Sunset Arena"
+                        });
                 });
 
             modelBuilder.Entity("EventEaseApp.Models.Booking", b =>

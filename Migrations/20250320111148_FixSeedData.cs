@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace EventEaseApp.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class FixSeedData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -67,6 +69,33 @@ namespace EventEaseApp.Migrations
                         principalTable: "Venue",
                         principalColumn: "VenueId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Event",
+                columns: new[] { "EventId", "Description", "EventDate", "EventName" },
+                values: new object[,]
+                {
+                    { 1, "A global conference on emerging technologies.", new DateTime(2025, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tech Conference 2025" },
+                    { 2, "An electrifying music experience with top artists.", new DateTime(2025, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Music Festival" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Venue",
+                columns: new[] { "VenueId", "Capacity", "ImageUrl", "Location", "VenueName" },
+                values: new object[,]
+                {
+                    { 1, 500, "https://via.placeholder.com/150", "New York", "Grand Hall" },
+                    { 2, 1000, "https://via.placeholder.com/150", "Los Angeles", "Sunset Arena" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Booking",
+                columns: new[] { "BookingId", "BookingDate", "EventId", "VenueId" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 3, 20, 12, 0, 0, 0, DateTimeKind.Unspecified), 1, 1 },
+                    { 2, new DateTime(2025, 3, 21, 14, 0, 0, 0, DateTimeKind.Unspecified), 2, 2 }
                 });
 
             migrationBuilder.CreateIndex(
