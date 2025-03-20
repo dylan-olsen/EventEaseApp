@@ -1,47 +1,201 @@
 ﻿@model IEnumerable<EventEaseApp.Models.Booking>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Bookings";
 }
 
-<h1>Index</h1>
+<style>
+    /* Color Palette */
+    :root {
+        --primary-color: #003366;
+        --secondary-color: #F4A261;
+        --background-color: #F5F5F5;
+        --text-color: #333333;
+        --danger-color: #D9534F;
+        --hover-color: rgba(0, 51, 102, 0.1);
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Event)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Venue)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookingDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Event.EventName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Venue.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookingDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BookingId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BookingId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BookingId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    body {
+        background-color: var(--background-color);
+        font-family: 'Arial', sans-serif;
+    }
+
+    .bookings-container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .booking-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        position: relative;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 15px;
+    }
+
+        .booking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+    .booking-info {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .event-name {
+        font-size: 1.4em;
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+
+    .venue-name {
+        font-size: 1.1em;
+        color: var(--text-color);
+        margin-top: 5px;
+    }
+
+    .booking-date {
+        font-size: 1em;
+        color: var(--secondary-color);
+        font-weight: bold;
+    }
+
+    /* Dropdown Container */
+    .dropdown-container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 5px;
+        position: relative;
+    }
+
+    .dropbtn {
+        background: none;
+        border: none;
+        font-size: 1.5em;
+        cursor: pointer;
+        color: var(--text-color);
+        padding: 5px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        bottom: 40px;
+        right: 10px;
+        background: white;
+        min-width: 140px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        z-index: 10;
+        text-align: left;
+    }
+
+        .dropdown-content a, .dropdown-content form button {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            text-align: left;
+            border: none;
+            background: none;
+            width: 100%;
+        }
+
+            .dropdown-content a:hover, .dropdown-content form button:hover {
+                background-color: var(--hover-color);
+            }
+
+    .show {
+        display: block;
+    }
+
+    /* Add Booking Card */
+    .add-booking-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        text-align: center;
+    }
+
+        .add-booking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+    .plus-icon {
+        font-size: 3em;
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+
+    .add-text {
+        font-size: 1.2em;
+        color: var(--text-color);
+        font-weight: bold;
+    }
+</style>
+
+<script>
+    function toggleDropdown(event, id) {
+        event.stopPropagation();
+        var dropdown = document.getElementById(id);
+        dropdown.classList.toggle("show");
+    }
+
+    window.onclick = function() {
+        var dropdowns = document.querySelectorAll(".dropdown-content");
+        dropdowns.forEach(dropdown => dropdown.classList.remove("show"));
+    };
+</script>
+
+<div class="bookings-container">
+    <h1 class="text-center" style="color: var(--primary-color);">Bookings</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+        <!-- Add New Booking Card -->
+        <div class="col">
+            <a asp-action="Create" class="add-booking-card">
+                <div>
+                    <div class="plus-icon">+</div>
+                    <div class="add-text">Add New Booking</div>
+                </div>
+            </a>
+        </div>
+
+        @foreach (var booking in Model)
+        {
+            <div class="col">
+                <div class="booking-card">
+                    <div class="booking-info">
+                        <div class="event-name">@booking.Event.EventName</div>
+                        <div class="venue-name">@booking.Venue.Location</div>
+                        <div class="booking-date">@booking.BookingDate.ToString("MMMM dd, yyyy")</div>
+                    </div>
+                    <div class="dropdown-container">
+                        <button class="dropbtn" onclick="toggleDropdown(event, 'dropdown-@booking.BookingId')">⋮</button>
+                        <div id="dropdown-@booking.BookingId" class="dropdown-content">
+                            <a asp-action="Details" asp-route-id="@booking.BookingId">View Details</a>
+                            <a asp-action="Edit" asp-route-id="@booking.BookingId">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@booking.BookingId" method="post" onsubmit="return confirm('Are you sure you want to delete this booking?');">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,44 +1,27 @@
 ﻿@model EventEaseApp.Models.Booking
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Booking";
 }
 
-<h1>Edit</h1>
+<div class="container">
+    <h1 class="page-title">Edit Booking</h1>
 
-<h4>Booking</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="BookingId" />
-            <div class="form-group">
-                <label asp-for="EventId" class="control-label"></label>
-                <select asp-for="EventId" class="form-control" asp-items="ViewBag.EventId"></select>
-                <span asp-validation-for="EventId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VenueId" class="control-label"></label>
-                <select asp-for="VenueId" class="form-control" asp-items="ViewBag.VenueId"></select>
-                <span asp-validation-for="VenueId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BookingDate" class="control-label"></label>
-                <input asp-for="BookingDate" class="form-control" />
-                <span asp-validation-for="BookingDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="BookingId" />
+
+        <label for="EventId">Select Event</label>
+        <select asp-for="EventId" class="form-control" asp-items="ViewBag.Events"></select>
+
+        <label for="VenueId">Select Venue</label>
+        <select asp-for="VenueId" class="form-control" asp-items="ViewBag.Venues"></select>
+
+        <label for="BookingDate">Booking Date</label>
+        <input asp-for="BookingDate" class="form-control" type="date" />
+
+        <div class="btn-container">
+            <button type="submit" class="btn-primary">Save Changes</button>
+            <a asp-action="Index" class="btn-secondary">Cancel</a>
+        </div>
+    </form>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
