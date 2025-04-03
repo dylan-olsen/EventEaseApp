@@ -19,7 +19,7 @@ namespace EventEaseApp.Models
         public int Capacity { get; set; }
 
         [StringLength(500)]
-        public string ImageUrl { get; set; } // Placeholder for now
+        public string? ImageUrl { get; set; } // Placeholder for now
 
         // Navigation Property: A venue can have multiple bookings
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();

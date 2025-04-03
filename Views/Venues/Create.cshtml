@@ -83,6 +83,8 @@
     <h1 class="page-title">Create a New Venue</h1>
 
     <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
         <label for="VenueName">Venue Name</label>
         <input asp-for="VenueName" class="form-control" placeholder="Enter venue name" />
 
@@ -94,6 +96,7 @@
 
         <label for="ImageUrl">Image URL</label>
         <input asp-for="ImageUrl" class="form-control" placeholder="Paste image URL here" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
 
         <div class="btn-container">
             <button type="submit" class="btn-primary">Create Venue</button>
