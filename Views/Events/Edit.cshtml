@@ -1,44 +1,100 @@
 ﻿@model EventEaseApp.Models.Event
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Event";
 }
 
-<h1>Edit</h1>
+<style>
+    .container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
+    }
 
-<h4>Event</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="EventId" />
-            <div class="form-group">
-                <label asp-for="EventName" class="control-label"></label>
-                <input asp-for="EventName" class="form-control" />
-                <span asp-validation-for="EventName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventDate" class="control-label"></label>
-                <input asp-for="EventDate" class="form-control" />
-                <span asp-validation-for="EventDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+    .page-title {
+        font-size: 1.8em;
+        color: #003366;
+        font-weight: bold;
+    }
+
+    label {
+        font-weight: bold;
+        color: #003366;
+        display: block;
+        text-align: left;
+        margin-top: 15px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 10px 15px;
+        font-size: 1em;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #003366;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #F4A261;
+        }
+
+    .btn-secondary {
+        background-color: #777;
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background-color: #555;
+        }
+</style>
+
+<div class="container">
+    <h1 class="page-title">Edit Event</h1>
+
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="EventId" />
+
+        <label asp-for="EventName"></label>
+        <input asp-for="EventName" class="form-control" />
+        <span asp-validation-for="EventName" class="text-danger"></span>
+
+        <label asp-for="EventDate"></label>
+        <input asp-for="EventDate" class="form-control" type="date" />
+        <span asp-validation-for="EventDate" class="text-danger"></span>
+
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+
+        <div class="btn-container">
+            <button type="submit" class="btn-primary">Save Changes</button>
+            <a asp-action="Index" class="btn-secondary">Cancel</a>
+        </div>
+    </form>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
